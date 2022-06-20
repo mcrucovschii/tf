@@ -57,3 +57,11 @@ model.save ('/var/model', save_format='tf')
 new_model = tf.keras.model.load_model('/var/model')
 new_model.summary()
 
+weights = tf.Variable([tf.random.normal()])
+
+while True:
+    with tf.GradientTape() as g:
+        loss = g.compute_loss(weights)
+        gradient = g.gradient (loss,weights)
+    weights = weights - g.lr * gradient
+
